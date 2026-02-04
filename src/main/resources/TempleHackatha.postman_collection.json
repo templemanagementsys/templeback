@@ -1,0 +1,287 @@
+{
+  "info": {
+    "_postman_id": "8d52bab6-cf3e-4358-a209-b0a6cf1bf342",
+    "name": "TempleHackatha",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "28965028"
+  },
+  "item": [
+    {
+      "name": "generatetesttoken",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"phoneNumber\":\"+917045901703\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/public/firebase/generate-test-token",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "public",
+            "firebase",
+            "generate-test-token"
+          ],
+          "query": [
+            {
+              "key": "phoneNumber",
+              "value": "+917045901703",
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "firebaseverifytesttoken",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"firebaseIdToken\": \"eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiVVNFUiIsInN1YiI6Iis5MTcwNDU5MDE3MDMiLCJpYXQiOjE3NzAyMTE3NzEsImV4cCI6MTc3MDIxMjA3MX0.cbm3mSCYcv_ET4k4olcFdi0grX_KFIQjPrNagItwXIY\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/public/firebase/verify",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "public",
+            "firebase",
+            "verify"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Register",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"email\": \"soham@g.com\",\n    \"password\": \"password123\",\n    \"fullName\": \"Soham Kadam\",\n    \"phoneNumber\": \"+1234567890\",\n    \"firebaseIdToken\":\"eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiVVNFUiIsInN1YiI6Iis5MTcwNDU5MDE3MDMiLCJpYXQiOjE3NzAyMTE1NDksImV4cCI6MTc3MDIxMTg0OX0.YghjAb5ck7kI7Y1UhOGSpmnsmmoKdOWL26FOjjVTCfM\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/public/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "public",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"email\": \"+1234567890\",\n    \"password\": \"password123\"\n  }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Me",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiVVNFUiIsInN1YiI6Iis5MTcwNDU5MDE3MDMiLCJpYXQiOjE3NzAyMTE3ODAsImV4cCI6MTc3MjgwMzc4MH0._zFoPuh5idVDCsnVr5r5-azVMbLOlMEdo9NcQEiKm-E",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QGV4YW1wbGUuY29tIiwiaWF0IjoxNzcwMTQxODQ2LCJleHAiOjE3NzAyMjgyNDZ9.v-IoJ1tgknM2NeRQB9VPVf6cLShSQqjDuoY3zwS8kjU"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:5000/api/users/me",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "users",
+            "me"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "update",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "changepass",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiVVNFUiIsInN1YiI6Iis5MTcwNDU5MDE3MDMiLCJpYXQiOjE3NzAyMTE3ODAsImV4cCI6MTc3MjgwMzc4MH0._zFoPuh5idVDCsnVr5r5-azVMbLOlMEdo9NcQEiKm-E",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"currentPassword\":\"password123\",\r\n    \"newPassword\":\"anymore\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/users/changepass/898b56c3-06e0-4bdd-95f1-892771ef74e2 ",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "users",
+            "changepass",
+            "898b56c3-06e0-4bdd-95f1-892771ef74e2 "
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Getalluser",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/users",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "users"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "auth": {
+    "type": "bearer"
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
+}
