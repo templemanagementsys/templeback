@@ -6,6 +6,8 @@ import com.hackathon.templeback.user.model.User;
 import com.hackathon.templeback.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,11 +23,16 @@ public class UserControllerAuth {
 
     // Get user profile
     @GetMapping("/me")
-    @SecurityAnnotations.IsUserOrAdmin.ForMethod
-    public ResponseEntity<User> getCurrentUser() {
-
-        User currentUser = userService.getCurrentUser();
-        return ResponseEntity.ok(currentUser);
+    @SecurityAnnotations.IsAdmin.ForMethod
+    public ResponseEntity<?> getCurrentUser() {
+        try {
+            System.out.println("Running /me Route");
+            User currentUser = userService.getCurrentUser();
+            return ResponseEntity.ok(currentUser);
+        } catch (Exception e) {
+            System.out.println(e);
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     // Get user by ID
@@ -36,7 +43,7 @@ public class UserControllerAuth {
     }
 
 
-    @GetMapping
+    @GetMapping("/all-users")
     @SecurityAnnotations.IsAdmin.ForMethod
     public ResponseEntity<List<User>> getAllUsers() {
         return ResponseEntity.ok(userService.getAllUsers());

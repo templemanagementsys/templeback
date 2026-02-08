@@ -238,7 +238,12 @@ public class UserService {
 
     public User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        assert authentication != null;
+
+        if (authentication == null) {
+            System.out.println("Calling Auth 404");
+            throw new RuntimeException("Authentication token not provided");
+        }
+
         String phone = authentication.getName();
         return userRepository.findByPhoneNumber(phone)
                 .orElseThrow(() -> new RuntimeException("User not found"));

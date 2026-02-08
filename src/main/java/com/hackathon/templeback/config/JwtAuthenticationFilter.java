@@ -44,6 +44,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+//            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+//            response.setContentType("application/json");
+//            response.getWriter().write(
+//                    new ObjectMapper().writeValueAsString(
+//                            Map.of(
+//                                    "status", 401,
+//                                    "error", "Unauthorized",
+//                                    "message", "No Authentication Token is provided",
+//                                    "path", request.getRequestURI()
+//                            )
+//                    )
+//            );
+//            return;
             filterChain.doFilter(request, response);
             return;
         }

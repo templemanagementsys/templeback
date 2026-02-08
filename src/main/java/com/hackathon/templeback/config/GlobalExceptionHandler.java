@@ -31,6 +31,7 @@ public class GlobalExceptionHandler {
             Exception ex, HttpServletRequest request) {
 
         log.error("Unhandled exception occurred: {}", ex.getMessage(), ex);
+        System.out.println(ex.getMessage());
 
         ErrorResponse errorResponse = new ErrorResponse(
                 HttpStatus.INTERNAL_SERVER_ERROR,
@@ -40,7 +41,6 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
     /**
      * Handle custom runtime exceptions
      */
@@ -123,6 +123,7 @@ public class GlobalExceptionHandler {
             Exception ex, HttpServletRequest request) {
 
         log.warn("Authentication failed: {}", ex.getMessage());
+        System.out.println("Authentication Error");
 
         ErrorResponse errorResponse = new ErrorResponse(
                 HttpStatus.UNAUTHORIZED,
