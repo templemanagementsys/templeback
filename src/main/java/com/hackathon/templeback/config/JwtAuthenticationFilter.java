@@ -5,6 +5,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,8 +15,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import tools.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
@@ -23,6 +26,28 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtservice;
     private final UserDetailsService userDetailsService;
+
+    private HttpServletResponse SendResponse(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            Integer status,
+            String error,
+            String message
+    ) throws IOException {
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.setContentType("application/json");
+        response.getWriter().write(
+                new ObjectMapper().writeValueAsString(
+                        Map.of(
+                                "status", status,
+                                "error", error,
+                                "message", message,
+                                "path", request.getRequestURI()
+                        )
+                )
+        );
+        return response;
+    }
 
     @Override
     protected void doFilterInternal(
@@ -44,21 +69,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-//            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-//            response.setContentType("application/json");
-//            response.getWriter().write(
-//                    new ObjectMapper().writeValueAsString(
-//                            Map.of(
-//                                    "status", 401,
-//                                    "error", "Unauthorized",
-//                                    "message", "No Authentication Token is provided",
-//                                    "path", request.getRequestURI()
-//                            )
-//                    )
-//            );
-//            return;
-            filterChain.doFilter(request, response);
+            SendResponse(request, response, 401, "unauthorized", "no valid authorization token is found");
             return;
+//            filterChain.doFilter(request, response);
+//            return;
         }
 
         jwt = authHeader.substring(7);
